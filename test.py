@@ -45,6 +45,14 @@ def test_valid_acct():
     assert bank_acct.is_valid_acct() == True
 
 
+def test_deposit():
+    acct_1.deposit(25, 'USD')
+    acct_1.deposit(15, 'USD')
+    acct_2.deposit(33, 'JPY')
+    assert acct_1.get_balance() == 40
+    assert acct_2.get_balance() == 33
+
+
 # BankSystem Tests
 
 
