@@ -13,4 +13,8 @@ class BankSystem:
             raise Exception(
                 "The input BankAccount is not valid, provide more information."
             )
+        if new_acct.get_acct_no in self._accts():
+            raise Exception(
+                "The input BankAccount already exists and cannot be added again."
+            )
         self._accts[new_acct.get_acct_no] = new_acct

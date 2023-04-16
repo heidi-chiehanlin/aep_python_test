@@ -40,3 +40,13 @@ def add_invalid_acct_to_system():
 
 def test_add_invalid_acct_to_system():
     _AssertRaisesContext(Exception, add_invalid_acct_to_system)
+
+
+def add_duplicate_acct_to_system():
+    bank_system = BankSystem()
+    bank_system.add_acct(BankAccount('20230416', 'Bob', 'USD'))
+    bank_system.add_acct(BankAccount('20230416', 'Catherine', 'TWD'))
+
+
+def test_add_duplicate_acct_to_system():
+    _AssertRaisesContext(Exception, add_duplicate_acct_to_system)
