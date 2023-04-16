@@ -1,5 +1,6 @@
 # Understands the bank accounts and transactions in the bank system
 from BankAccount import BankAccount
+from Currency import Currency, exchange_to
 
 
 class BankSystem:
@@ -29,6 +30,13 @@ class BankSystem:
 
     def transfer(self, sender, recipient, amount):
         if not sender.get_currency() == recipient.get_currency():
-            raise Exception("Currency mismatch")
+            raise Exception("Currency mismatch, use foreign_transfer instead.")
         sender.withdraw(amount, sender.get_currency())
         recipient.deposit(amount, sender.get_currency())
+
+    def foreign_transfer(self, sender, recipient, amount):
+        sender.withdraw(amount, sender.get_currency())
+        new_amount = exchange_to(
+            sender.get_currency(), amount, recipient.get_currency()
+        )
+        recipient.deposit(new_amount, recipient.get_currency())
