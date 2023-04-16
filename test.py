@@ -7,12 +7,12 @@ from Currency import Currency, exchange_to
 # Global Test Objects
 
 bank_system = BankSystem()
-acct_1 = BankAccount('0001', 'Amy', 'USD')
-acct_2 = BankAccount('0002', 'Amy', 'JPY')
-acct_3 = BankAccount('0003', 'Bob', 'KRW')
-acct_4 = BankAccount('0004', 'Cathy', 'USD')
-acct_5 = BankAccount('0005', 'David', 'USD')
-acct_6 = BankAccount('0006', 'Cathy', 'USD')
+acct_1 = BankAccount('0001', 'Amy', Currency.USD)
+acct_2 = BankAccount('0002', 'Amy', Currency.JPY)
+acct_3 = BankAccount('0003', 'Bob', Currency.KRW)
+acct_4 = BankAccount('0004', 'Cathy', Currency.USD)
+acct_5 = BankAccount('0005', 'David', Currency.USD)
+acct_6 = BankAccount('0006', 'Cathy', Currency.USD)
 acct_7 = BankAccount('0007', 'Evelyn', Currency.USD)
 acct_8 = BankAccount('0008', 'Fred', Currency.EUR)
 
@@ -32,13 +32,13 @@ def test_get_acct_no():
 
 
 def test_get_holder_name():
-    bank_acct = BankAccount('20230416', 'Amy', 'USD')
+    bank_acct = BankAccount('20230416', 'Amy', Currency.USD)
     assert bank_acct.get_holder_name() == 'Amy'
 
 
 def test_get_currency():
-    bank_acct = BankAccount('20230416', 'Amy', 'USD')
-    assert bank_acct.get_currency() == 'USD'
+    bank_acct = BankAccount('20230416', 'Amy', Currency.USD)
+    assert bank_acct.get_currency() == Currency.USD
 
 
 def test_invalid_acct():
@@ -47,27 +47,27 @@ def test_invalid_acct():
 
 
 def test_valid_acct():
-    bank_acct = BankAccount('20230416', 'Amy', 'USD')
+    bank_acct = BankAccount('20230416', 'Amy', Currency.USD)
     assert bank_acct.is_valid_acct() == True
 
 
 def test_deposit():
-    acct_1.deposit(25, 'USD')
-    acct_1.deposit(15, 'USD')
-    acct_2.deposit(33, 'JPY')
+    acct_1.deposit(25, Currency.USD)
+    acct_1.deposit(15, Currency.USD)
+    acct_2.deposit(33, Currency.JPY)
     assert acct_1.get_balance() == 40
     assert acct_2.get_balance() == 33
 
 
 def test_withdraw():
-    acct_3.deposit(10, 'KRW')
-    acct_3.withdraw(5, 'KRW')
+    acct_3.deposit(10, Currency.KRW)
+    acct_3.withdraw(5, Currency.KRW)
     assert acct_3.get_balance() == 5
 
 
 def withdraw_more_than_balance():
-    acct_4.deposit(55, 'USD')
-    acct_4.withdraw(65, 'USD')
+    acct_4.deposit(55, Currency.USD)
+    acct_4.withdraw(65, Currency.USD)
 
 
 def test_cannot_withdraw_more_than_balance():
@@ -96,8 +96,8 @@ def test_add_invalid_acct_to_system():
 
 def add_duplicate_acct_to_system():
     bank_system = BankSystem()
-    bank_system.add_acct(BankAccount('20230416', 'Bob', 'USD'))
-    bank_system.add_acct(BankAccount('20230416', 'Catherine', 'TWD'))
+    bank_system.add_acct(BankAccount('20230416', 'Bob', Currency.USD))
+    bank_system.add_acct(BankAccount('20230416', 'Catherine', Currency.TWD))
 
 
 def test_add_duplicate_acct_to_system():
@@ -115,7 +115,7 @@ def test_search_acct_function():
 
 
 def test_transfer():
-    acct_5.deposit(100, 'USD')
+    acct_5.deposit(100, Currency.USD)
     bank_system.transfer(sender=acct_5, recipient=acct_6, amount=50)
     assert acct_5.get_balance() == 50
     assert acct_6.get_balance() == 50
