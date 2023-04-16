@@ -1,6 +1,8 @@
 from unittest.case import _AssertRaisesContext
 from BankAccount import BankAccount
 from BankSystem import BankSystem
+from Currency import Currency, exchange_to
+
 
 # Global Test Objects
 
@@ -114,3 +116,14 @@ def test_transfer():
     bank_system.transfer(sender=acct_5, recipient=acct_6, amount=50)
     assert acct_5.get_balance() == 50
     assert acct_6.get_balance() == 50
+
+
+#  Currency Tests
+
+
+def test_USD_to_JPY():
+    assert exchange_to(Currency.USD, 1, Currency.JPY) == 132.35
+
+
+def test_TWD_to_USD():
+    assert exchange_to(Currency.TWD, 60.96, Currency.USD) == 2

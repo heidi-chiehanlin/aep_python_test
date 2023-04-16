@@ -27,7 +27,7 @@ class BankSystem:
         sorted_output = sorted(output, key=lambda x: x.get_acct_no())
         return sorted_output
 
-    def transfer(self, sender: BankAccount, recipient: BankAccount, amount):
+    def transfer(self, sender, recipient, amount):
         if not sender.get_currency() == recipient.get_currency():
             raise Exception("Currency mismatch")
         sender.withdraw(amount, sender.get_currency())

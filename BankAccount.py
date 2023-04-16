@@ -33,3 +33,6 @@ class BankAccount:
 
     def get_balance(self):
         return self._balance
+
+    def exchange_to(original_crrency, amount, new_currency):
+        return amount / original_crrency.value * new_currency.value
