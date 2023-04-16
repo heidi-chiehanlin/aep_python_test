@@ -53,6 +53,25 @@ def test_deposit():
     assert acct_2.get_balance() == 33
 
 
+def test_withdraw():
+    acct_3.deposit(10, 'KRW')
+    acct_3.withdraw(5, 'KRW')
+    assert acct_3.get_balance() == 5
+
+
+def withdraw_more_than_balance():
+    acct_4.deposit(55, 'USD')
+    acct_4.withdraw(65, 'USD')
+
+
+def test_cannot_withdraw_more_than_balance():
+    _AssertRaisesContext(
+        Exception,
+        withdraw_more_than_balance,
+        'The withdraw amount exceeds account balance.',
+    )
+
+
 # BankSystem Tests
 
 
