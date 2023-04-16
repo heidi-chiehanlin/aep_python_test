@@ -1,4 +1,8 @@
+from unittest.case import _AssertRaisesContext
 from BankAccount import BankAccount
+from BankSystem import BankSystem
+
+# BankAccout Tests
 
 
 def test_get_acct_no():
@@ -16,7 +20,7 @@ def test_get_currency():
     assert bank_acct.get_currency() == 'USD'
 
 
-def test_unvalid_acct():
+def test_invalid_acct():
     bank_acct = BankAccount('20230416', 'Amy')
     assert bank_acct.is_valid_acct() == False
 
@@ -24,3 +28,15 @@ def test_unvalid_acct():
 def test_valid_acct():
     bank_acct = BankAccount('20230416', 'Amy', 'USD')
     assert bank_acct.is_valid_acct() == True
+
+
+# BankSystem Tests
+
+
+def add_invalid_acct_to_system():
+    bank_system = BankSystem()
+    bank_system.add_acct(BankAccount('20230416'))
+
+
+def test_add_invalid_acct_to_system():
+    _AssertRaisesContext(Exception, add_invalid_acct_to_system)
