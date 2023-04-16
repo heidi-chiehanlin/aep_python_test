@@ -13,8 +13,16 @@ class BankSystem:
             raise Exception(
                 "The input BankAccount is not valid, provide more information."
             )
-        if new_acct.get_acct_no in self._accts():
+        if new_acct.get_acct_no in self._accts.keys():
             raise Exception(
                 "The input BankAccount already exists and cannot be added again."
             )
         self._accts[new_acct.get_acct_no] = new_acct
+
+    def search_accts_under_clients_name(self, name):
+        output = []
+        for acct in self._accts.keys():
+            if self._accts[acct].get_holder_name() == name:
+                output.append(self._accts[acct])
+        sorted_output = sorted(output, key=lambda x: x.get_acct_no())
+        return sorted_output
