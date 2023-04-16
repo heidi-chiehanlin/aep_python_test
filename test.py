@@ -10,6 +10,7 @@ acct_2 = BankAccount('0002', 'Amy', 'JPY')
 acct_3 = BankAccount('0003', 'Bob', 'KRW')
 acct_4 = BankAccount('0004', 'Cathy', 'USD')
 acct_5 = BankAccount('0005', 'David', 'USD')
+acct_6 = BankAccount('0006', 'Cathy', 'USD')
 bank_system.add_acct(acct_1)
 bank_system.add_acct(acct_2)
 bank_system.add_acct(acct_3)
@@ -106,3 +107,10 @@ def test_search_acct_function():
     output = bank_system.search_accts_under_clients_name('Amy')
     assert output[0].get_acct_no() == '0001'
     assert output[1].get_acct_no() == '0002'
+
+
+def test_transfer():
+    acct_5.deposit(100, 'USD')
+    bank_system.transfer(sender=acct_5, recipient=acct_6, amount=50)
+    assert acct_5.get_balance() == 50
+    assert acct_6.get_balance() == 50

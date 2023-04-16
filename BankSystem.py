@@ -1,4 +1,4 @@
-# Understands the bank accounts in the system
+# Understands the bank accounts and transactions in the bank system
 from BankAccount import BankAccount
 
 
@@ -26,3 +26,9 @@ class BankSystem:
                 output.append(self._accts[acct])
         sorted_output = sorted(output, key=lambda x: x.get_acct_no())
         return sorted_output
+
+    def transfer(self, sender: BankAccount, recipient: BankAccount, amount):
+        if not sender.get_currency() == recipient.get_currency():
+            raise Exception("Currency mismatch")
+        sender.withdraw(amount, sender.get_currency())
+        recipient.deposit(amount, sender.get_currency())
